@@ -1,6 +1,7 @@
 //Tab_screen is a stateful widget
 
 import 'package:flutter/material.dart';
+import '../normal_widgets/main_drawer.dart';
 import '../screen_widgets/favori_ekrani.dart';
 import '../screen_widgets/ekran_kategorisi.dart';
 
@@ -12,11 +13,24 @@ class TabEkrani extends StatefulWidget {
 }
 
 class _TabEkraniState extends State<TabEkrani> {
-  final List<Widget> _ekranlar = [
-    //  defining indexes of the pages
-    //  this is a instantiated list of  widgets
-    EkranKategorisi(),
-    FavoriEkrani(),
+  // Note: change the tab screen titles so remove the code below :
+
+  // final List<Widget> _ekranlar = [
+  //   //  defining indexes of the pages
+  //   //  this is a instantiated list of  widgets
+  //   EkranKategorisi(),
+  //   FavoriEkrani(),
+  // ];
+
+  final List<Map<String, Object>> _ekranlar = [
+    {
+      'sayfa': EkranKategorisi(),
+      'baslik': 'Kategoriler',
+    },
+    {
+      'sayfa': FavoriEkrani(),
+      'baslik': 'Favoriler',
+    },
   ];
 
   int _seciliEkranIndeksi = 0; // default olarak secili ekran indexi 0
@@ -52,8 +66,17 @@ class _TabEkraniState extends State<TabEkrani> {
 
       // for the screen
       appBar: AppBar(
-        title: Text('Yemekler'),
+        title: Text(
+            _ekranlar[_seciliEkranIndeksi]['baslik']), // modify for  map object
       ),
+
+      drawer: MainDrawer(),
+
+      // now call (render) the main drawer
+      // Drawer( // create a drawer argument in the scaffold widget
+      //   child: Text('The drawer!'),
+      // ),
+
       //   bottom: TabBar(tabs: [
       //     // define tabs
       //     Tab(
@@ -70,8 +93,8 @@ class _TabEkraniState extends State<TabEkrani> {
       // ),
       //NOTE: We dont need Appbar for the bottom tab widget
 
-      body: _ekranlar[
-          _seciliEkranIndeksi], // list of widgets are ekran kategorisi and
+      body: _ekranlar[_seciliEkranIndeksi]['sayfa'], // modify for a map object
+      // list of widgets are ekran kategorisi and
       //favori ekrani. body ' deki gorunum ekranlarin indeksine gore guncellensin
 
       //NOTE: We dont need tabbar view for the bottom tab widget
