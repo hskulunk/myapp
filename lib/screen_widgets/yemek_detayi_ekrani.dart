@@ -29,15 +29,131 @@
 
 // // note: YemekDetayiEkrani should be appered when we tap on the yemek_ogeleri (onemli-0)
 
+// import 'package:flutter/material.dart';
+// import '../databases/dummy_data.dart'; // import dummy data
+
+// class YemekDetayiEkrani extends StatelessWidget {
+//   static const routeName = '/yemek-detayi';
+
+//   Widget buildSectionTitle(BuildContext context, String text) {
+//     // cok onemli (2)
+//     // burada widget olusturuyoruz. birkac kere kullanmak icin
+//     return Container(
+//       margin: EdgeInsets.symmetric(vertical: 10),
+//       child: Text(
+//         text,
+//         style: Theme.of(context).textTheme.titleMedium,
+//       ),
+//     );
+//   }
+
+//   Widget buildContainer(Widget child) {
+//     // cok onemli (3)
+//     // burada widget olusturuyoruz. birkac kere kullanmak icin
+//     return Container(
+//       decoration: BoxDecoration(
+//         color: Colors.white,
+//         border: Border.all(color: Colors.grey),
+//         borderRadius: BorderRadius.circular(10),
+//       ),
+//       margin: EdgeInsets.all(10),
+//       padding: EdgeInsets.all(10),
+//       height: 150,
+//       width: 300,
+//       child: child,
+//     );
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     final yemekId = ModalRoute.of(context).settings.arguments as String;
+//     final secilenYemek = DUMMY_MEALS.firstWhere(
+//         (yemek) => yemek.id == yemekId); // this is a crucial code  (1)
+//     //firstwhere means get only one yemek when the condition is satisfied
+//     // yemekId defined  above
+//     return Scaffold(
+//         appBar: AppBar(
+//           title: Text('${secilenYemek.title}'), // modify
+//         ),
+//         body: SingleChildScrollView(
+//           // we dont have enough space
+//           // so we wrap the column widget with the single child scroll view wigdet (4)
+//           child: Column(
+//             children: [
+//               Container(
+//                 height: 300,
+//                 width: double.infinity,
+//                 child: Image.network(
+//                   secilenYemek.imageUrl, // we need to acces
+//                   // dummy datas images
+//                   fit: BoxFit.cover,
+//                 ),
+//               ),
+//               buildSectionTitle(
+//                 // widget a gore modifiye edildi
+//                 context,
+//                 'Ingredients',
+//               ),
+//               // ListView(), // listview shows infinity so we should go for container
+//               buildContainer(
+//                 // yukarda tanimladigin widget i buraya yaz (3)
+//                 ListView.builder(
+//                   // we can create list view here
+//                   itemBuilder: (context, index) => Card(
+//                     color: Theme.of(context).colorScheme.secondary,
+//                     child: Padding(
+//                       padding: EdgeInsets.symmetric(
+//                         vertical: 5,
+//                         horizontal: 10,
+//                       ),
+//                       child: Text(
+//                         secilenYemek.ingredients[index], //define above
+//                         style: TextStyle(color: Colors.black),
+//                       ),
+//                     ),
+//                   ),
+//                   itemCount: secilenYemek.ingredients.length, //define above
+//                 ),
+//               ),
+
+//               buildSectionTitle(
+//                 // widget a gore modifiye edildi
+//                 context,
+//                 'Steps',
+//               ),
+//               buildContainer(
+//                 ListView.builder(
+//                   itemBuilder: (context, index) => Column(
+//                     children: [
+//                       ListTile(
+//                         // we also need a divider (5) it can be made like this
+//                         leading: CircleAvatar(
+//                           child: Text('# ${(index + 1)}'),
+//                         ),
+//                         title: Text(
+//                           secilenYemek.steps[index], // defined above
+//                         ),
+//                       ),
+//                       Divider(), // draw horizontal line
+//                     ],
+//                   ),
+//                   itemCount: secilenYemek.steps.length, //defined above
+//                 ),
+//               ),
+//             ],
+//           ),
+//         ));
+//   }
+// }
+
+//version 4
 import 'package:flutter/material.dart';
-import '../databases/dummy_data.dart'; // import dummy data
+import '../databases/dummy_data.dart';
 
 class YemekDetayiEkrani extends StatelessWidget {
   static const routeName = '/yemek-detayi';
 
   Widget buildSectionTitle(BuildContext context, String text) {
-    // cok onemli (2)
-    // burada widget olusturuyoruz. birkac kere kullanmak icin
     return Container(
       margin: EdgeInsets.symmetric(vertical: 10),
       child: Text(
@@ -48,8 +164,6 @@ class YemekDetayiEkrani extends StatelessWidget {
   }
 
   Widget buildContainer(Widget child) {
-    // cok onemli (3)
-    // burada widget olusturuyoruz. birkac kere kullanmak icin
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
@@ -67,38 +181,28 @@ class YemekDetayiEkrani extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final yemekId = ModalRoute.of(context).settings.arguments as String;
-    final secilenYemek = DUMMY_MEALS.firstWhere(
-        (yemek) => yemek.id == yemekId); // this is a crucial code  (1)
-    //firstwhere means get only one yemek when the condition is satisfied
-    // yemekId defined  above
+    final secilenYemek = DUMMY_MEALS.firstWhere((yemek) => yemek.id == yemekId);
     return Scaffold(
         appBar: AppBar(
-          title: Text('${secilenYemek.title}'), // modify
+          title: Text('${secilenYemek.title}'),
         ),
         body: SingleChildScrollView(
-          // we dont have enough space
-          // so we wrap the column widget with the single child scroll view wigdet (4)
           child: Column(
             children: [
               Container(
                 height: 300,
                 width: double.infinity,
                 child: Image.network(
-                  secilenYemek.imageUrl, // we need to acces
-                  // dummy datas images
+                  secilenYemek.imageUrl,
                   fit: BoxFit.cover,
                 ),
               ),
               buildSectionTitle(
-                // widget a gore modifiye edildi
                 context,
                 'Ingredients',
               ),
-              // ListView(), // listview shows infinity so we should go for container
               buildContainer(
-                // yukarda tanimladigin widget i buraya yaz (3)
                 ListView.builder(
-                  // we can create list view here
                   itemBuilder: (context, index) => Card(
                     color: Theme.of(context).colorScheme.secondary,
                     child: Padding(
@@ -107,17 +211,15 @@ class YemekDetayiEkrani extends StatelessWidget {
                         horizontal: 10,
                       ),
                       child: Text(
-                        secilenYemek.ingredients[index], //define above
+                        secilenYemek.ingredients[index],
                         style: TextStyle(color: Colors.black),
                       ),
                     ),
                   ),
-                  itemCount: secilenYemek.ingredients.length, //define above
+                  itemCount: secilenYemek.ingredients.length,
                 ),
               ),
-
               buildSectionTitle(
-                // widget a gore modifiye edildi
                 context,
                 'Steps',
               ),
@@ -126,18 +228,17 @@ class YemekDetayiEkrani extends StatelessWidget {
                   itemBuilder: (context, index) => Column(
                     children: [
                       ListTile(
-                        // we also need a divider (5) it can be made like this
                         leading: CircleAvatar(
                           child: Text('# ${(index + 1)}'),
                         ),
                         title: Text(
-                          secilenYemek.steps[index], // defined above
+                          secilenYemek.steps[index],
                         ),
                       ),
-                      Divider(), // draw horizontal line
+                      Divider(),
                     ],
                   ),
-                  itemCount: secilenYemek.steps.length, //defined above
+                  itemCount: secilenYemek.steps.length,
                 ),
               ),
             ],
