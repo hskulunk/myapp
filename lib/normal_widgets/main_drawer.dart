@@ -77,6 +77,7 @@ class MainDrawer extends StatelessWidget {
       leading: Icon(
         icon,
         size: 26,
+        color: Colors.green,
       ),
       title: Text(
         title,
@@ -84,6 +85,7 @@ class MainDrawer extends StatelessWidget {
           fontFamily: 'RobotoCondensed',
           fontSize: 24,
           fontWeight: FontWeight.bold,
+          color: Colors.black87,
         ),
       ),
       onTap: tapHandler,
@@ -113,10 +115,13 @@ class MainDrawer extends StatelessWidget {
             height: 20,
           ),
           buildListTile('Yemekler', Icons.restaurant, () {
-            Navigator.of(context).pushNamed('/');
+            Navigator.of(context).pushReplacementNamed('/'); // modify
+            //replace the page instead of stacking it, so we could save the memory
           }),
           buildListTile('Ayarlar', Icons.settings, () {
-            Navigator.of(context).pushNamed(AyarlarEkrani.routeName);
+            Navigator.of(context)
+                .pushReplacementNamed(AyarlarEkrani.routeName); // modify
+            //replace the page instead of stacking it so we could save the memory
           }),
         ],
       ),

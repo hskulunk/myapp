@@ -246,9 +246,17 @@ class YemekOgeleri extends StatelessWidget {
   }
 
   void yemekSec(BuildContext context) {
-    Navigator.of(context).pushNamed(
+    Navigator.of(context)
+        .pushNamed(
       YemekDetayiEkrani.routeName,
       arguments: id,
+    )
+        .then(
+      (result) {
+        // after reached the page after popping then the screen shows the
+        // yemekId (result)
+        print(result);
+      },
     );
   }
 

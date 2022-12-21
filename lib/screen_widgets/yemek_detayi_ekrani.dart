@@ -183,66 +183,76 @@ class YemekDetayiEkrani extends StatelessWidget {
     final yemekId = ModalRoute.of(context).settings.arguments as String;
     final secilenYemek = DUMMY_MEALS.firstWhere((yemek) => yemek.id == yemekId);
     return Scaffold(
-        appBar: AppBar(
-          title: Text('${secilenYemek.title}'),
-        ),
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              Container(
-                height: 300,
-                width: double.infinity,
-                child: Image.network(
-                  secilenYemek.imageUrl,
-                  fit: BoxFit.cover,
-                ),
+      appBar: AppBar(
+        title: Text('${secilenYemek.title}'),
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+              height: 300,
+              width: double.infinity,
+              child: Image.network(
+                secilenYemek.imageUrl,
+                fit: BoxFit.cover,
               ),
-              buildSectionTitle(
-                context,
-                'Ingredients',
-              ),
-              buildContainer(
-                ListView.builder(
-                  itemBuilder: (context, index) => Card(
-                    color: Theme.of(context).colorScheme.secondary,
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(
-                        vertical: 5,
-                        horizontal: 10,
-                      ),
-                      child: Text(
-                        secilenYemek.ingredients[index],
-                        style: TextStyle(color: Colors.black),
-                      ),
+            ),
+            buildSectionTitle(
+              context,
+              'Ingredients',
+            ),
+            buildContainer(
+              ListView.builder(
+                itemBuilder: (context, index) => Card(
+                  color: Theme.of(context).colorScheme.secondary,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(
+                      vertical: 5,
+                      horizontal: 10,
+                    ),
+                    child: Text(
+                      secilenYemek.ingredients[index],
+                      style: TextStyle(color: Colors.black),
                     ),
                   ),
-                  itemCount: secilenYemek.ingredients.length,
                 ),
+                itemCount: secilenYemek.ingredients.length,
               ),
-              buildSectionTitle(
-                context,
-                'Steps',
-              ),
-              buildContainer(
-                ListView.builder(
-                  itemBuilder: (context, index) => Column(
-                    children: [
-                      ListTile(
-                        leading: CircleAvatar(
-                          child: Text('# ${(index + 1)}'),
-                        ),
-                        title: Text(
-                          secilenYemek.steps[index],
-                        ),
+            ),
+            buildSectionTitle(
+              context,
+              'Steps',
+            ),
+            buildContainer(
+              ListView.builder(
+                itemBuilder: (context, index) => Column(
+                  children: [
+                    ListTile(
+                      leading: CircleAvatar(
+                        child: Text('# ${(index + 1)}'),
                       ),
-                      Divider(),
-                    ],
-                  ),
-                  itemCount: secilenYemek.steps.length,
+                      title: Text(
+                        secilenYemek.steps[index],
+                      ),
+                    ),
+                    Divider(),
+                  ],
                 ),
+                itemCount: secilenYemek.steps.length,
               ),
-            ],
-          ),
-        ));
+            ),
+          ],
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(
+          Icons.delete,
+        ),
+        onPressed: () {
+          Navigator.of(context)
+              .pop(yemekId); //  means (go back) delete the current screen
+        },
+      ),
+    );
   }
 }

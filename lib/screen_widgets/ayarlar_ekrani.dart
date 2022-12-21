@@ -16,13 +16,25 @@
 
 //version 4
 import 'package:flutter/material.dart';
+import '../normal_widgets/main_drawer.dart';
 
 class AyarlarEkrani extends StatelessWidget {
   static const routeName = '/ayarlar';
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text('Ayarlar!'),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Ayarlarim'),
+      ),
+      drawer: MainDrawer(), // add  a drawer
+      body: Center(
+        child: Text(
+          'Ayarlar!',
+          style: TextStyle(
+            color: Colors.black,
+          ),
+        ),
+      ),
     );
   }
 }
