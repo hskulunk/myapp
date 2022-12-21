@@ -100,6 +100,7 @@
 
 //version 3
 import 'package:flutter/material.dart';
+import 'package:flutter_complete_guide/screen_widgets/ayarlar_ekrani.dart';
 import '../screen_widgets/tabs_ekrani.dart';
 import '../screen_widgets/yemek_detayi_ekrani.dart';
 import 'screen_widgets/yemek_kategorileri_ekrani.dart';
@@ -137,6 +138,8 @@ class MyApp extends StatelessWidget {
         YemekKategorileriEkrani.routeName: ((context) =>
             YemekKategorileriEkrani()),
         YemekDetayiEkrani.routeName: (context) => YemekDetayiEkrani(),
+        AyarlarEkrani.routeName: (context) =>
+            AyarlarEkrani(), // add widget on a main dart file
       },
     );
   }

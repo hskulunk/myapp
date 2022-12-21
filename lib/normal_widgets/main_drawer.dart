@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import '../screen_widgets/ayarlar_ekrani.dart';
 
 class MainDrawer extends StatelessWidget {
   // const MainDrawer({Key key}) : super(key: key);
 
-  Widget buildListTile(String title, IconData icon) {
+  Widget buildListTile(String title, IconData icon, Function tapHandler) {
     return ListTile(
       leading: Icon(
         icon, // eslestir, yukarda tanimli
@@ -17,9 +18,8 @@ class MainDrawer extends StatelessWidget {
           fontWeight: FontWeight.bold,
         ),
       ),
-      onTap: () {
-        //...        go to the different page
-      },
+      onTap:
+          tapHandler, // when on tap implemet the function (tapHandler function)
     );
   }
 
@@ -46,15 +46,20 @@ class MainDrawer extends StatelessWidget {
             height: 20,
           ),
           buildListTile(
-            // this is a listtile defined as build widget above
-            'Yemekler',
-            Icons.restaurant,
-          ),
+              // this is a listtile defined as build widget above
+              'Yemekler',
+              Icons.restaurant, () {
+            Navigator.of(context).pushNamed('/'); // call the TabEkrani  as
+            //a function defined in buildListTile
+          }),
           buildListTile(
-            // this is a listtile  defined as build widget above
-            'Ayarlar',
-            Icons.settings,
-          ),
+              // this is a listtile  defined as build widget above
+              'Ayarlar',
+              Icons.settings, () {
+            Navigator.of(context)
+                .pushNamed(AyarlarEkrani.routeName); // call the
+            // AyarlarEkrani  as a function defined in buildListTile
+          }),
         ],
       ),
     );
