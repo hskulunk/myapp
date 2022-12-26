@@ -91,9 +91,6 @@ import '../databases/dummy_data.dart';
 import '../models/yemek.dart';
 
 class YemekKategorileriEkrani extends StatefulWidget {
-  // firstly
-// convert to stateful widget because when we pressing the trash bin,
-// it updates the YemekKategorileriEkrani (4)
   static const routeName = '/yemek-kategorileri';
 
   @override
@@ -102,56 +99,44 @@ class YemekKategorileriEkrani extends StatefulWidget {
 }
 
 class _YemekKategorileriEkraniState extends State<YemekKategorileriEkrani> {
-  String kategoryBaslik; // mutable not final (6)
-  List<Yemek> yemekGoster; // create a list of meals (7)
-  var _initialDataYukleniyor = false; // (13)
+  String kategoryBaslik;
+  List<Yemek> yemekGoster;
+  var _initialDataYukleniyor = false;
 
   @override
   void initState() {
-    //initstate runs too early before the context
-    // so we need to delete the code from here
-    //...
     super.initState();
   }
 
-  @override // new (its the concept is very challenging)
+  @override
   void didChangeDependencies() {
     if (!_initialDataYukleniyor) {
-      // (14) if _initialDataYukleniyor == false its a start screen
-      final routeArgs = ModalRoute.of(context).settings.arguments
-          as Map<String, String>; //ModalRoute
-      //of context doesnt like initstate (12) so use didChangeDependencies
-      kategoryBaslik =
-          routeArgs['title']; // is a mutable so delete the final (8)
+      final routeArgs =
+          ModalRoute.of(context).settings.arguments as Map<String, String>;
+      kategoryBaslik = routeArgs['title'];
       final kategoryId = routeArgs['id'];
 
       yemekGoster = DUMMY_MEALS.where((Yemek) {
-        // is a mutable so delete the final modify it (9)
         return Yemek.categories.contains(kategoryId);
       }).toList();
-      _initialDataYukleniyor = true; // new (14) its a updated screen
-
+      _initialDataYukleniyor = true;
     }
 
     final routeArgs =
         ModalRoute.of(context).settings.arguments as Map<String, String>;
-    kategoryBaslik = routeArgs['title']; // is a mutable so delete the final
+    kategoryBaslik = routeArgs['title'];
     final kategoryId = routeArgs['id'];
 
     yemekGoster = DUMMY_MEALS.where((Yemek) {
-      // is a mutable so delete the final modify it
       return Yemek.categories.contains(kategoryId);
     }).toList();
-    _initialDataYukleniyor = true; // new (14) if its false
+    _initialDataYukleniyor = true;
 
     super.didChangeDependencies();
   }
 
   void _yemekSil(String yemekId) {
-    // create a function that deletes meals (5)
     setState(() {
-      // (10) create a set state function
-      // yemekId defined in _yemekSil void
       yemekGoster.removeWhere((yemek) => yemek.id == yemekId);
     });
   }
@@ -171,8 +156,7 @@ class _YemekKategorileriEkraniState extends State<YemekKategorileriEkrani> {
             duration: yemekGoster[index].duration,
             affordability: yemekGoster[index].affordability,
             complexity: yemekGoster[index].complexity,
-            removeItem: _yemekSil, // attain a function property
-            //defined above (_yemekSil) (11)
+            removeItem: _yemekSil,
           );
         },
         itemCount: yemekGoster.length,

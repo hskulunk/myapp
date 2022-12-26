@@ -1,6 +1,3 @@
-// note: favori ekrani is a stateless widget
-
-//version 4
 import 'package:flutter/material.dart';
 
 class FavoriEkrani extends StatelessWidget {

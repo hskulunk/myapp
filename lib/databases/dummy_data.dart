@@ -1,7 +1,3 @@
-// NOT: Ikinci olarak tanimlanan atteribute lara gore dummy categories list
-// belirleniyor (3)
-
-//version 4
 import 'package:flutter/material.dart';
 
 import '../models/kategory.dart';
