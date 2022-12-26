@@ -204,6 +204,9 @@ class YemekOgeleri extends StatelessWidget {
   final int duration;
   final Complexity complexity;
   final Affordability affordability;
+  final Function removeItem; // new function (3) if result is not null
+  //that means if we press on the trash bin (pop function) in YemekDetayiEkrani
+
   const YemekOgeleri({
     @required this.id,
     @required this.title,
@@ -211,6 +214,8 @@ class YemekOgeleri extends StatelessWidget {
     @required this.duration,
     @required this.complexity,
     @required this.affordability,
+    @required this.removeItem, //new function (3) if result is not null
+    //that means if we press on the trash bin (pop function) in YemekDetayiEkrani
   });
 
   String get ComplexityText {
@@ -248,14 +253,20 @@ class YemekOgeleri extends StatelessWidget {
   void yemekSec(BuildContext context) {
     Navigator.of(context)
         .pushNamed(
+      // pushnamed means when push names on the YemekKategorileriEkrani,
+      // YemekDetayiEkrani will be shown
       YemekDetayiEkrani.routeName,
       arguments: id,
     )
         .then(
+      // then means after showing YemekDetayiEkrani, show result (2)
       (result) {
         // after reached the page after popping then the screen shows the
-        // yemekId (result)
-        print(result);
+        // yemekId (result) which is defined in YemekDetayiEkrani
+        if (result != null) {
+          // if the result is not null remove the result (yemekId)
+          removeItem(result);
+        }
       },
     );
   }

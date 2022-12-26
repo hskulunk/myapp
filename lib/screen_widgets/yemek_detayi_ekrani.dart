@@ -244,13 +244,20 @@ class YemekDetayiEkrani extends StatelessWidget {
           ],
         ),
       ),
+      // Note: In this section, in the yemek_detayi_ekrani
+      // we want a button that deletes the screen TEMPORARILY when we go back
+      // to the yemek_kategorileri_ekrani
+      //temporarily
       floatingActionButton: FloatingActionButton(
+        // the button makes delete the details
+        //of meal and go back
         child: Icon(
           Icons.delete,
         ),
         onPressed: () {
           Navigator.of(context)
-              .pop(yemekId); //  means (go back) delete the current screen
+              .pop(yemekId); // navigator of pop we can go back (1)
+          // pop removes the screen of a top of stack, passing data is yemekId
         },
       ),
     );
