@@ -87,11 +87,17 @@
 //version 4
 import 'package:flutter/material.dart';
 import 'package:flutter_complete_guide/normal_widgets/yemek_ogeleri.dart';
-import '../databases/dummy_data.dart';
+//import '../databases/dummy_data.dart'; // (13) clear the dummy_data.dart we dont need
+//it anymore we ll handle it into the main.dart
 import '../models/yemek.dart';
 
 class YemekKategorileriEkrani extends StatefulWidget {
   static const routeName = '/yemek-kategorileri';
+
+  final List<Yemek>
+      uygunYemekler; // create a list of Yemek called uygunYemekler (11)
+
+  YemekKategorileriEkrani(this.uygunYemekler); // (11)
 
   @override
   State<YemekKategorileriEkrani> createState() =>
@@ -116,7 +122,9 @@ class _YemekKategorileriEkraniState extends State<YemekKategorileriEkrani> {
       kategoryBaslik = routeArgs['title'];
       final kategoryId = routeArgs['id'];
 
-      yemekGoster = DUMMY_MEALS.where((Yemek) {
+      yemekGoster = widget.uygunYemekler.where((Yemek) {
+        //change DUMMY_MEALS with a
+        //uygunYemekler (12)
         return Yemek.categories.contains(kategoryId);
       }).toList();
       _initialDataYukleniyor = true;
@@ -127,7 +135,9 @@ class _YemekKategorileriEkraniState extends State<YemekKategorileriEkrani> {
     kategoryBaslik = routeArgs['title'];
     final kategoryId = routeArgs['id'];
 
-    yemekGoster = DUMMY_MEALS.where((Yemek) {
+    yemekGoster = widget.uygunYemekler.where((Yemek) {
+      //change DUMMY_MEALS with a
+      //uygunYemekler (12)
       return Yemek.categories.contains(kategoryId);
     }).toList();
     _initialDataYukleniyor = true;
