@@ -4,6 +4,16 @@ import '../databases/dummy_data.dart';
 class YemekDetayiEkrani extends StatelessWidget {
   static const routeName = '/yemek-detayi';
 
+  final Function
+      toogleFavoriler; // create a function called toggleFavoriler (9)
+
+  final Function isFavorite; // create a function (13)
+
+  YemekDetayiEkrani(
+    this.toogleFavoriler,
+    this.isFavorite,
+  ); // (13)
+
   Widget buildSectionTitle(BuildContext context, String text) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 10),
@@ -97,11 +107,13 @@ class YemekDetayiEkrani extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(
-          Icons.delete,
+          isFavorite(yemekId)
+              ? Icons.star
+              : Icons.star_border, // pass the function
+          // with a yemekId property (14)
         ),
-        onPressed: () {
-          Navigator.of(context).pop(yemekId);
-        },
+        onPressed: (() => toogleFavoriler(yemekId)), //pass function into the
+        // icon button (10) , modify it with the anonymus function
       ),
     );
   }

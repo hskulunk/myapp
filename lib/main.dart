@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_complete_guide/screen_widgets/favori_ekrani.dart';
 import '../databases/dummy_data.dart';
 import '../models/yemek.dart';
 import '../screen_widgets/ayarlar_ekrani.dart';
@@ -22,6 +23,9 @@ class _MyAppState extends State<MyApp> {
   };
 
   List<Yemek> _uygunYemekler = DUMMY_MEALS;
+  List<Yemek> _favoriYemekler =
+      []; // create an empty list of Yemek called _favoriYemekler (1)
+
   void _filtreAyarla(Map<String, bool> filtrelenmisVeri) {
     setState(() {
       _filtreler = filtrelenmisVeri;
@@ -42,6 +46,31 @@ class _MyAppState extends State<MyApp> {
         return true;
       }).toList();
     });
+  }
+
+  void _toggleFavoriler(String yemekId) {
+    // toogle (sec, kilitle) favoriler method created (6)
+    final mevcutIndex =
+        _favoriYemekler.indexWhere((element) => element.id == yemekId);
+    if (mevcutIndex >= 0) {
+      setState(() {
+        _favoriYemekler.removeAt(mevcutIndex);
+      });
+    } else {
+      setState(() {
+        _favoriYemekler.add(
+          DUMMY_MEALS.firstWhere((element) => element.id == yemekId),
+        );
+      });
+    } // each time the build method create entire screen which is not desirable thing
+    // so we need state management (7)
+  }
+
+  //add another method which is a boolean (11)
+  bool _isMealFavorite(String id) {
+    return _favoriYemekler
+        .any((element) => element.id == id); // create a boolean
+    //string and pass to the YemekDetayiEkrani (11)
   }
 
   @override
@@ -69,10 +98,15 @@ class _MyAppState extends State<MyApp> {
       ),
       initialRoute: '/',
       routes: {
-        '/': (context) => TabEkrani(),
+        '/': (context) => TabEkrani(_favoriYemekler), // forward _favoriYemekler
+        //into a TabEkrani because TabEkrani has FavoriEkrani (2)
         YemekKategorileriEkrani.routeName: ((context) =>
             YemekKategorileriEkrani(_uygunYemekler)),
-        YemekDetayiEkrani.routeName: (context) => YemekDetayiEkrani(),
+        YemekDetayiEkrani.routeName: (context) => YemekDetayiEkrani(
+              _toggleFavoriler,
+              _isMealFavorite,
+            ), // passed the boolean (12)
+        //past it to the YemekDetayiEkrani (8)
         AyarlarEkrani.routeName: (context) =>
             AyarlarEkrani(_filtreler, _filtreAyarla),
       },

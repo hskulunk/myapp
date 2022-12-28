@@ -72,7 +72,7 @@ class _YemekKategorileriEkraniState extends State<YemekKategorileriEkrani> {
             duration: yemekGoster[index].duration,
             affordability: yemekGoster[index].affordability,
             complexity: yemekGoster[index].complexity,
-            removeItem: _yemekSil,
+            //  removeItem: _yemekSil,
           );
         },
         itemCount: yemekGoster.length,
